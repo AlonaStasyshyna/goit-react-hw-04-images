@@ -1,39 +1,48 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modal/Modal';
 import { GallaryItem, GallaryImg } from './ImageGalleryItem.styled';
 
-export class ImageGalleryItem extends Component {
-  state = {
-    currentImage: null,
+export const ImageGalleryItem = ({ img, largeImg, alt }) => {
+  const [currentImage, setCurrentImage] = useState(null);
+
+  const openModal = () => {
+    setCurrentImage(largeImg);
   };
 
-  openModal = () => {
-    this.setState({ currentImage: this.props.largeImg });
+  const closeModal = () => {
+    setCurrentImage(null);
   };
 
-  closeModal = () => {
-    this.setState({
-      currentImage: null,
-    });
+  const closeByEsc = e => {
+    if (e.code === 'Escape') {
+      closeModal();
+    }
   };
 
-  render() {
-    const { img, largeImg, alt } = this.props;
-    const { openModal, closeModal } = this;
-    const { currentImage } = this.state;
+  const closeByBackdrop = e => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
 
-    return (
-      <>
-        <GallaryItem className="gallery-item">
-          <GallaryImg src={img} alt={alt} onClick={openModal} />
-        </GallaryItem>
+  return (
+    <>
+      <GallaryItem className="gallery-item">
+        <GallaryImg src={img} alt={alt} onClick={openModal} />
+      </GallaryItem>
 
-        {currentImage && <Modal img={largeImg} alt={alt} closeModal={closeModal} />}
-      </>
-    );
-  }
-}
+      {currentImage && (
+        <Modal
+          img={largeImg}
+          alt={alt}
+          closeByEsc={closeByEsc}
+          closeByBackdrop={closeByBackdrop}
+        />
+      )}
+    </>
+  );
+};
 
 ImageGalleryItem.protoTypes = {
   key: PropTypes.number.isRequired,

@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
-import { Header, SearchForm, SearchFormButton, SearchFormInput } from './Searchbar.styled';
+import {
+  Header,
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+} from './Searchbar.styled';
 
 export const Searchbar = ({ onSubmit }) => {
   return (
