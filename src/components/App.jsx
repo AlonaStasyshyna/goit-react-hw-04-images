@@ -11,7 +11,6 @@ export const App = () => {
   const [gallery, setGallery] = useState([]);
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(12);
   const [totalHits, setTotalHits] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -55,7 +54,7 @@ export const App = () => {
     setPage(prevState => prevState + 1);
   };
 
-  const getTotalPages = () => Math.ceil(totalHits / perPage);
+  const getTotalPages = () => Math.ceil(totalHits / 12);
 
   return (
     <Container>
